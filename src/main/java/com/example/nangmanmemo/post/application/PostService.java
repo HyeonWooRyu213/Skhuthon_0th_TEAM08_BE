@@ -80,11 +80,22 @@ public class PostService {
 
     // 게시글 업데이트
     @Transactional
-    public void postUpdate(Long postId, PostUpdateReqDto postUpdateReqDto) {
+    public void postUpdate(Long postId, @RequestBody PostUpdateReqDto postUpdateReqDto) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(()-> new PostNotFoundException(postId));
 
         post.update(postUpdateReqDto);
+    }
+
+    @Transactional
+    public DetailPostResDto postImageUpdate(Long postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(()-> new PostNotFoundException(postId));
+
+        List<Comment> comments = commentRepository.findByPostPostId(postId);
+        Image image = imageRepository.findByPostPostId(postId);
+
+        return DetailPostResDto.from(post, comments, image);
     }
 
     // 게시글 삭제
