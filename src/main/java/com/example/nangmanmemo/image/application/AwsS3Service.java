@@ -53,17 +53,6 @@ public class AwsS3Service {
         imageRepository.save(imageEntity);
     }
 
-    public void updateImageInfo(Long imageId, ImageUpdateReqDto request) {
-        Optional<ImageEntity> optionalImage = imageRepository.findById(imageId);
-        if (optionalImage.isPresent()) {
-            ImageEntity image = optionalImage.get();
-            image.updateImage(request.imageUrl());
-            imageRepository.save(image);
-        } else {
-            throw new IllegalArgumentException("Image not found with id: " + imageId);
-        }
-    }
-
     public void deleteImage(Long imageId) {
         Optional<ImageEntity> optionalImage = imageRepository.findById(imageId);
         if (optionalImage.isPresent()) {

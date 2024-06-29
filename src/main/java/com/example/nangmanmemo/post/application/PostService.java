@@ -22,6 +22,7 @@ public class PostService {
 
     private final PostRepository postRepository;
 
+
     @Transactional
     public void postSave(@RequestBody PostSaveReqDto postSaveReqDto) {
         Post post = Post.builder()

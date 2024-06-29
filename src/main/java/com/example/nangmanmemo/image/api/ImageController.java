@@ -34,14 +34,6 @@ public class ImageController {
         }
     }
 
-    @PutMapping("/update/{imageId}")
-    public ResponseEntity<Void> updateImage(
-            @PathVariable Long imageId,
-            @RequestBody ImageUpdateReqDto request) {
-        awsS3Service.updateImageInfo(imageId, request);
-        return ResponseEntity.ok().build();
-    }
-
     @DeleteMapping("/{imageId}")
     public ResponseEntity<Void> deleteImage(@PathVariable Long imageId) {
         awsS3Service.deleteImage(imageId);
