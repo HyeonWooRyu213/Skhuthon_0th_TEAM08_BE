@@ -10,10 +10,6 @@ public record PostSaveReqDto(
         @Max(value = 20)
         String title,
         @NotBlank
-        String content,
-        @NotBlank
-        int view,
-        @NotBlank
-        int likes
+        String content
 ) {
 }
