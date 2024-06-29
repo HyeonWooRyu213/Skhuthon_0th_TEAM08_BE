@@ -46,9 +46,9 @@ public class PostController {
 
     @Operation(summary = "좋아요 등록", method = "POST")
     @PostMapping("/{postId}/like")
-    public ResponseEntity<String> likePost(@PathVariable Long postId) {
+    public RspTemplate<String> likePost(@PathVariable Long postId) {
         postService.incrementLike(postId);
-        return ResponseEntity.ok().build();
+        return new RspTemplate<>(HttpStatus.OK, "좋아요 등록");
     }
 
 
