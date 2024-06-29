@@ -40,10 +40,6 @@ public class Post {
     @Column(name = "likes", columnDefinition = "int default 0")
     private int likes;
 
-    // 게시글 신고
-    @Column(name = "report")
-    private String report;
-
     // 게시글 작성 시간
     @Column(name = "postDate")
     private LocalDateTime postDate;
