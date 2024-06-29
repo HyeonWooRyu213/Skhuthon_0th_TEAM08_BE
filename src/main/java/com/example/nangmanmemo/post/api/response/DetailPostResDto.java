@@ -36,6 +36,7 @@ public record DetailPostResDto(
                 .content(post.getContent())
                 .imageUrl(image.getImageUrl())
                 .view(post.getView())
+                .likes(post.getLikes())
                 .postDate(post.getPostDate())
                 .comments(comments1)
                 .build();

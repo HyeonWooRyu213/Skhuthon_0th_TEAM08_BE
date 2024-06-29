@@ -30,6 +30,12 @@ public class PostController {
         this.postService = postService;
     }
 
+    @PostMapping("/{postId}/like")
+    public ResponseEntity<String> likePost(@PathVariable Long postId) {
+        postService.incrementLike(postId);
+        return ResponseEntity.ok().build();
+    }
+
 
     @PostMapping
     public ResponseEntity<String> postSave(@RequestBody PostSaveReqDto postSaveReqDto) {
