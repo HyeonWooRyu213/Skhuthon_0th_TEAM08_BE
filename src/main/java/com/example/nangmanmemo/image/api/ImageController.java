@@ -21,7 +21,6 @@ public class ImageController {
             @RequestParam("postId") Long postId) {
 
             String imageUrl = imageService.upload(file);
-
             imageService.saveImageInfo(postId, imageUrl);
             return new RspTemplate<>(HttpStatus.OK,  "업로드 완료!", new ImageInfoResDto(imageUrl));
 

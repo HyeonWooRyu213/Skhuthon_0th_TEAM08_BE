@@ -60,6 +60,7 @@ public class ImageService {
                 .post(post)
                 .build();
         imageRepository.save(image);
+
     }
 
     @Transactional
