@@ -7,9 +7,9 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.example.nangmanmemo.image.api.dto.request.ImageUpdateReqDto;
 import com.example.nangmanmemo.image.domain.ImageEntity;
-import com.example.nangmanmemo.image.domain.Post;
 import com.example.nangmanmemo.image.domain.repository.ImageRepository;
-import com.example.nangmanmemo.image.domain.repository.PostRepository;
+import com.example.nangmanmemo.post.domain.Post;
+import com.example.nangmanmemo.post.domain.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,11 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
