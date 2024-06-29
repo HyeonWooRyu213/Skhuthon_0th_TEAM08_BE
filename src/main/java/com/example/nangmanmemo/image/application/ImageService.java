@@ -9,6 +9,8 @@ import com.example.nangmanmemo.image.domain.Image;
 import com.example.nangmanmemo.image.domain.repository.ImageRepository;
 import com.example.nangmanmemo.image.exception.ImageNotFoundException;
 import com.example.nangmanmemo.image.exception.PostNotFoundException;
+import com.example.nangmanmemo.post.api.response.PostImageInfoResDto;
+import com.example.nangmanmemo.post.api.response.PostInfoResDto;
 import com.example.nangmanmemo.post.domain.Post;
 import com.example.nangmanmemo.post.domain.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +53,7 @@ public class ImageService {
     }
 
     @Transactional
-    public void saveImageInfo(Long postId, String imageUrl) {
+    public PostImageInfoResDto saveImageInfo(Long postId, String imageUrl) {
         Post post = postRepository.findByPostId(postId)
                 .orElseThrow(() -> new PostNotFoundException(postId));
 
@@ -61,6 +63,7 @@ public class ImageService {
                 .build();
         imageRepository.save(image);
 
+        return PostImageInfoResDto.from(image, post);
     }
 
     @Transactional
