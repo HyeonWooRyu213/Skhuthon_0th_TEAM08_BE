@@ -22,9 +22,9 @@ public record DetailPostResDto(
         @NotBlank
         String imageUrl,
         @NotBlank
-        Integer likes,
+        int likes,
         @NotBlank
-        Integer view,
+        int view,
 
         LocalDateTime postDate,
         @NotNull
@@ -36,18 +36,15 @@ public record DetailPostResDto(
                 .map(Comment::getContent)
                 .toList();
 
-
-
-
         return DetailPostResDto.builder()
                 .postId(post.getPostId())
                 .title(post.getTitle())
-                .content(post.getContent())
-                .imageUrl(image.getImageUrl())
+                .content(post.getContent()) // 조건식 ? 참 : 거짓
+                .imageUrl(image != null ? image.getImageUrl() : null)
                 .view(post.getView())
                 .likes(post.getLikes())
                 .postDate(post.getPostDate())
-                .comments(comments1)
+                .comments(comments != null ? comments1 : null)
                 .build();
     }
 }

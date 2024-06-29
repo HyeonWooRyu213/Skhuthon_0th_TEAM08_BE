@@ -15,6 +15,8 @@ public record PostInfoResDto(
         @NotBlank
         @Max(value = 20)
         String title,
+        int view,
+        int likes,
         @NotBlank
         String content
 ) {
@@ -23,6 +25,8 @@ public record PostInfoResDto(
                 .postId(post.getPostId())
                 .title(post.getTitle())
                 .content(post.getContent())
+                .view(post.getView())
+                .likes(post.getLikes())
                 .build();
     }
 }

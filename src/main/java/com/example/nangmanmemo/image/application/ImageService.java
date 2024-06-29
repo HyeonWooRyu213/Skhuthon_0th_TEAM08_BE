@@ -8,11 +8,16 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.example.nangmanmemo.image.domain.Image;
 import com.example.nangmanmemo.image.domain.repository.ImageRepository;
 import com.example.nangmanmemo.image.exception.ImageNotFoundException;
+/*<<<<<<< HEAD
+=======
 import com.example.nangmanmemo.image.exception.PostNotFoundException;
 import com.example.nangmanmemo.post.api.response.PostImageInfoResDto;
 import com.example.nangmanmemo.post.api.response.PostInfoResDto;
+>>>>>>> e6574bbf67d381e7532740d9ed80f6014ca6e3ca*/
+import com.example.nangmanmemo.post.api.response.PostImageInfoResDto;
 import com.example.nangmanmemo.post.domain.Post;
 import com.example.nangmanmemo.post.domain.repository.PostRepository;
+import com.example.nangmanmemo.post.exeption.PostNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

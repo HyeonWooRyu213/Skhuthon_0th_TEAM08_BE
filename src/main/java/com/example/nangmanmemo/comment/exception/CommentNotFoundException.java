@@ -1,10 +1,14 @@
 package com.example.nangmanmemo.comment.exception;
 
-import com.example.nangmanmemo.global.error.exception.NotFoundGroupException;
+import com.example.nangmanmemo.comment.domain.Comment;
+import org.webjars.NotFoundException;
 
-public class CommentNotFoundException extends NotFoundGroupException {
-    public CommentNotFoundException(String message) { super(message); }
+public class CommentNotFoundException extends NotFoundException {
+
+    public CommentNotFoundException(String message) {super(message);}
+
     public CommentNotFoundException(Long commentId) {
-        this("해당하는 댓글이 없습니다. commentId: " + commentId);
+        this("게시글에 댓글이 없습니다. commentId: " + commentId);
     }
 }
+
