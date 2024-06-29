@@ -12,6 +12,7 @@ import com.example.nangmanmemo.post.api.response.PostInfoResDto;
 import com.example.nangmanmemo.post.api.response.PostListResDto;
 import com.example.nangmanmemo.post.application.PostService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,19 +31,20 @@ public class PostController {
     private final PostService postService;
     private final ImageService imageService;
 
+    @Operation(summary = "게시물 및 이미지 등록", method = "POST")
     @PostMapping(consumes = "multipart/form-data")
-    public ResponseEntity<PostImageInfoResDto> postSave(
+    public RspTemplate<PostImageInfoResDto> postSave(
             @RequestPart("post") PostSaveReqDto postSaveReqDto,
             @RequestPart("file") MultipartFile file) throws IOException {
 
         Long postId = postService.postSave(postSaveReqDto);
         String imageUrl = imageService.upload(file);
-        imageService.saveImageInfo(postId, imageUrl);
+        PostImageInfoResDto postImageInfoResDto = imageService.saveImageInfo(postId, imageUrl);
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(new PostImageInfoResDto(postId, postSaveReqDto.title(), postSaveReqDto.content(), imageUrl));
+        return new RspTemplate<>(HttpStatus.OK,"등록완료!",postImageInfoResDto);
     }
 
+    @Operation(summary = "좋아요 등록", method = "POST")
     @PostMapping("/{postId}/like")
     public ResponseEntity<String> likePost(@PathVariable Long postId) {
         postService.incrementLike(postId);
@@ -50,14 +52,16 @@ public class PostController {
     }
 
 
+    @Operation(summary = "게시글 전체 조회", method = "GET")
     @GetMapping()
-    public ResponseEntity<PostListResDto> postFindAll() {
+    public RspTemplate<PostListResDto> postFindAll() {
         List<PostInfoResDto> posts = postService.postFindAll();
         PostListResDto postListResDto = PostListResDto.from(posts);
 
-        return new ResponseEntity<>(postListResDto, HttpStatus.OK);
+        return new RspTemplate<>(HttpStatus.OK,"조회 완료!",postListResDto);
     }
 
+    @Operation(summary = "게시글 하나 조회", method = "GET")
     @GetMapping("/{postId}")
     public ResponseEntity<DetailPostResDto> postFindOne(@PathVariable("postId") Long postId) {
         DetailPostResDto postInfoResDto = postService.postFindOne(postId);
@@ -65,6 +69,7 @@ public class PostController {
         return new ResponseEntity<>(postInfoResDto, HttpStatus.OK);
     }
 
+    @Operation(summary = "게시글 수정", method = "PATCH")
     @PatchMapping("/{postId}")
     public ResponseEntity<String> postUpdate(@PathVariable("postId") Long postId, @RequestBody PostUpdateReqDto postUpdateReqDto) {
         postService.postUpdate(postId, postUpdateReqDto);
@@ -72,6 +77,7 @@ public class PostController {
         return new ResponseEntity<>("게시글 수정", HttpStatus.OK);
     }
 
+    @Operation(summary = "게시글 삭제", method = "DELETE")
     @DeleteMapping("/{postId}")
     public ResponseEntity<String> postDelete(@PathVariable("postId") Long postId) {
         postService.postDelete(postId);
