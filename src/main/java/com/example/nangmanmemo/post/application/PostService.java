@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,13 +49,16 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public DetailPostResDto postFindOne(Long postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(()-> new IllegalArgumentException("해당 게시글 없음"));
+
+        post.incrementView();
+        postRepository.save(post);
+
         List<Comment> comments = commentRepository.findByPostPostId(postId);
-
         Image image = imageRepository.findByPostPostId(postId);
-
 
         return DetailPostResDto.from(post, comments, image);
     }
@@ -63,7 +67,7 @@ public class PostService {
     public void postUpdate(Long postId, PostUpdateReqDto postUpdateReqDto) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(()-> new IllegalArgumentException("해당 게시글 없음"));
-
+        
         post.update(postUpdateReqDto);
     }
 
