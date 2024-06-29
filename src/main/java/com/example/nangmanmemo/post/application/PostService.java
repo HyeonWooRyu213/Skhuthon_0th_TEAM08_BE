@@ -1,8 +1,13 @@
 package com.example.nangmanmemo.post.application;
 
+import com.example.nangmanmemo.comment.domain.Comment;
+import com.example.nangmanmemo.comment.domain.repository.CommentRepository;
+import com.example.nangmanmemo.image.domain.Image;
+import com.example.nangmanmemo.image.domain.repository.ImageRepository;
 import com.example.nangmanmemo.post.api.PostController;
 import com.example.nangmanmemo.post.api.request.PostSaveReqDto;
 import com.example.nangmanmemo.post.api.request.PostUpdateReqDto;
+import com.example.nangmanmemo.post.api.response.DetailPostResDto;
 import com.example.nangmanmemo.post.api.response.PostInfoResDto;
 import com.example.nangmanmemo.post.domain.Post;
 import com.example.nangmanmemo.post.domain.repository.PostRepository;
@@ -21,6 +26,8 @@ import java.util.stream.Collectors;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final CommentRepository commentRepository;
+    private final ImageRepository imageRepository;
 
     @Transactional
     public void postSave(@RequestBody PostSaveReqDto postSaveReqDto) {
@@ -39,11 +46,15 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
-    public PostInfoResDto postFindOne(Long postId) {
+    public DetailPostResDto postFindOne(Long postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(()-> new IllegalArgumentException("해당 게시글 없음"));
+        List<Comment> comments = commentRepository.findByPostPostId(postId);
 
-        return PostInfoResDto.from(post);
+        Image image = imageRepository.findByPostPostId(postId);
+
+
+        return DetailPostResDto.from(post, comments, image);
     }
 
     @Transactional

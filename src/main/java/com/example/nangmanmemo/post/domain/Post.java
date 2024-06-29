@@ -34,11 +34,11 @@ public class Post {
 
     // 게시글 조회수
     @Column(name = "view")
-    private int view;
+    private Integer view;
 
     // 게시글 좋아요 수
     @Column(name = "likes")
-    private int likes;
+    private Integer likes = 0;
 
     // 게시글 신고
     @Column(name = "report")

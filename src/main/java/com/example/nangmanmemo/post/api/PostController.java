@@ -2,6 +2,7 @@ package com.example.nangmanmemo.post.api;
 
 import com.example.nangmanmemo.post.api.request.PostSaveReqDto;
 import com.example.nangmanmemo.post.api.request.PostUpdateReqDto;
+import com.example.nangmanmemo.post.api.response.DetailPostResDto;
 import com.example.nangmanmemo.post.api.response.PostInfoResDto;
 import com.example.nangmanmemo.post.api.response.PostListResDto;
 import com.example.nangmanmemo.post.application.PostService;
@@ -22,6 +23,13 @@ public class PostController {
         this.postService = postService;
     }
 
+    @PostMapping
+    public ResponseEntity<String> postSave(@RequestBody PostSaveReqDto postSaveReqDto) {
+        postService.postSave(postSaveReqDto);
+
+        return new ResponseEntity<>("게시글 업로드", HttpStatus.CREATED);
+    }
+
     @GetMapping()
     public ResponseEntity<PostListResDto> postFindAll() {
         List<PostInfoResDto> posts = postService.postFindAll();
@@ -30,16 +38,9 @@ public class PostController {
         return new ResponseEntity<>(postListResDto, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<String> postSave(@RequestBody PostSaveReqDto postSaveReqDto) {
-        postService.postSave(postSaveReqDto);
-
-        return new ResponseEntity<>("게시글 업로드", HttpStatus.CREATED);
-    }
-
     @GetMapping("/{postId}")
-    public ResponseEntity<PostInfoResDto> postFindOne(@PathVariable("postId") Long postId) {
-        PostInfoResDto postInfoResDto = postService.postFindOne(postId);
+    public ResponseEntity<DetailPostResDto> postFindOne(@PathVariable("postId") Long postId) {
+        DetailPostResDto postInfoResDto = postService.postFindOne(postId);
 
         return new ResponseEntity<>(postInfoResDto, HttpStatus.OK);
     }
