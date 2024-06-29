@@ -22,7 +22,7 @@ public class ImageEntity {
     private Post post;  // 게시글 ID를 참조하는 외래키
 
     @Builder
-    private ImageEntity(String imageUrl, Post post) {
+    public ImageEntity(String imageUrl, Post post) {
         this.imageUrl = imageUrl;
         this.post = post;
     }

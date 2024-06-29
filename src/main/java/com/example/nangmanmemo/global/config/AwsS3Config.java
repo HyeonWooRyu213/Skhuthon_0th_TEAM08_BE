@@ -1,4 +1,4 @@
-package com.example.nangmanmemo.image.config;
+package com.example.nangmanmemo.global.config;
 // AWS S3 클라이언트를 설정하는 구성 파일
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
