@@ -43,6 +43,12 @@ public class PostController {
                 .body(new PostImageInfoResDto(postId, postSaveReqDto.title(), postSaveReqDto.content(), imageUrl));
     }
 
+    @PostMapping("/{postId}/like")
+    public ResponseEntity<String> likePost(@PathVariable Long postId) {
+        postService.incrementLike(postId);
+        return ResponseEntity.ok().build();
+    }
+
 
     @GetMapping()
     public ResponseEntity<PostListResDto> postFindAll() {

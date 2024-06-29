@@ -14,8 +14,8 @@ public record DetailPostResDto(
         String title,
         String content,
         String imageUrl,
-        int likes,
-        int view,
+        Integer likes,
+        Integer view,
 
         LocalDateTime postDate,
 
@@ -28,11 +28,15 @@ public record DetailPostResDto(
                 .toList();
 
 
+
+
         return DetailPostResDto.builder()
                 .postId(post.getPostId())
                 .title(post.getTitle())
                 .content(post.getContent())
                 .imageUrl(image.getImageUrl())
+                .view(post.getView())
+                .likes(post.getLikes())
                 .postDate(post.getPostDate())
                 .comments(comments1)
                 .build();
