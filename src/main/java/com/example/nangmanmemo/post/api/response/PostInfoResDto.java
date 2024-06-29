@@ -11,13 +11,17 @@ import java.util.List;
 public record PostInfoResDto(
         Long postId,
         String title,
-        String content
+        String content,
+        Integer view,
+        Integer likes
 ) {
     public static PostInfoResDto from (Post post) {
         return PostInfoResDto.builder()
                 .postId(post.getPostId())
                 .title(post.getTitle())
                 .content(post.getContent())
+                .view(post.getView())
+                .likes(post.getLikes())
                 .build();
     }
 }

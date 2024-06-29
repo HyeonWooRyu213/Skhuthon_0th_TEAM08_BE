@@ -14,11 +14,9 @@ public record DetailPostResDto(
         String title,
         String content,
         String imageUrl,
-        Integer likes,
-        Integer view,
-
+        int likes,
+        int view,
         LocalDateTime postDate,
-
         List<String> comments
 
 ) {
@@ -27,18 +25,15 @@ public record DetailPostResDto(
                 .map(Comment::getContent)
                 .toList();
 
-
-
-
         return DetailPostResDto.builder()
                 .postId(post.getPostId())
                 .title(post.getTitle())
-                .content(post.getContent())
-                .imageUrl(image.getImageUrl())
+                .content(post.getContent()) // 조건식 ? 참 : 거짓
+                .imageUrl(image != null ? image.getImageUrl() : null)
                 .view(post.getView())
                 .likes(post.getLikes())
                 .postDate(post.getPostDate())
-                .comments(comments1)
+                .comments(comments != null ? comments1 : null)
                 .build();
     }
 }

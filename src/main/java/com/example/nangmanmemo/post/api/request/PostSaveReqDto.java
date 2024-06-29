@@ -6,7 +6,6 @@ public record PostSaveReqDto(
         String title,
         String content,
         Integer view,
-        Integer likes,
-        LocalDateTime postDate
+        Integer likes
 ) {
 }

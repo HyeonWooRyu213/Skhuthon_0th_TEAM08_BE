@@ -33,12 +33,12 @@ public class Post {
     private String content;
 
     // 게시글 조회수
-    @Column(name = "view")
-    private Integer view;
+    @Column(name = "view", columnDefinition = "int default 0")
+    private int view;
 
     // 게시글 좋아요 수
-    @Column(name = "likes")
-    private Integer likes;
+    @Column(name = "likes", columnDefinition = "int default 0")
+    private int likes;
 
     // 게시글 신고
     @Column(name = "report")
@@ -75,8 +75,5 @@ public class Post {
     public void incrementLike() {
         this.likes++;
     }
-
-
-
 
 }
