@@ -1,5 +1,9 @@
 package com.example.nangmanmemo.image.api.dto.request;
 
-public record ImageUpdateReqDto(String imageUrl) {
+import jakarta.validation.constraints.NotBlank;
+
+public record ImageUpdateReqDto(
+        @NotBlank
+        String imageUrl) {
 
 }

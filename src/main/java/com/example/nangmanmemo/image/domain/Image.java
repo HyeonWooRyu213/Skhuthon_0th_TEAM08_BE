@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ImageEntity {
+public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "image_id")
@@ -23,7 +23,7 @@ public class ImageEntity {
     private Post post;  // 게시글 ID를 참조하는 외래키
 
     @Builder
-    public ImageEntity(String imageUrl, Post post) {
+    public Image(String imageUrl, Post post) {
         this.imageUrl = imageUrl;
         this.post = post;
     }
