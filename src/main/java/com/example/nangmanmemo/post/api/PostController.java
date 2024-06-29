@@ -1,16 +1,23 @@
 package com.example.nangmanmemo.post.api;
 
+import com.example.nangmanmemo.image.api.dto.response.ImageInfoResDto;
+import com.example.nangmanmemo.image.application.ImageService;
+import com.example.nangmanmemo.image.domain.repository.ImageRepository;
 import com.example.nangmanmemo.post.api.request.PostSaveReqDto;
 import com.example.nangmanmemo.post.api.request.PostUpdateReqDto;
 import com.example.nangmanmemo.post.api.response.DetailPostResDto;
 import com.example.nangmanmemo.post.api.response.PostInfoResDto;
 import com.example.nangmanmemo.post.api.response.PostListResDto;
 import com.example.nangmanmemo.post.application.PostService;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -22,6 +29,7 @@ public class PostController {
     public PostController(PostService postService) {
         this.postService = postService;
     }
+
 
     @PostMapping
     public ResponseEntity<String> postSave(@RequestBody PostSaveReqDto postSaveReqDto) {
