@@ -27,7 +27,6 @@ public class ImageController {
 
     }
 
-
     @DeleteMapping("/{imageId}")
     public RspTemplate<Void> deleteImage(@PathVariable Long imageId) {
         imageService.deleteImage(imageId);
