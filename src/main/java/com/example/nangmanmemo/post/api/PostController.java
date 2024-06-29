@@ -31,7 +31,7 @@ public class PostController {
     private final ImageService imageService;
 
     @PostMapping(consumes = "multipart/form-data")
-    public ResponseEntity<PostImageInfoResDto> postSave(
+    public RspTemplate<PostImageInfoResDto> postSave(
             @RequestPart("post") PostSaveReqDto postSaveReqDto,
             @RequestPart("file") MultipartFile file) throws IOException {
 
@@ -39,8 +39,7 @@ public class PostController {
         String imageUrl = imageService.upload(file);
         PostImageInfoResDto postImageInfoResDto = imageService.saveImageInfo(postId, imageUrl);
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(new PostImageInfoResDto(postId, postSaveReqDto.title(), postSaveReqDto.content(), imageUrl));
+        return new RspTemplate<>(HttpStatus.OK,"등록완료!",postImageInfoResDto);
     }
 
     @PostMapping("/{postId}/like")
@@ -51,11 +50,11 @@ public class PostController {
 
 
     @GetMapping()
-    public ResponseEntity<PostListResDto> postFindAll() {
+    public RspTemplate<PostListResDto> postFindAll() {
         List<PostInfoResDto> posts = postService.postFindAll();
         PostListResDto postListResDto = PostListResDto.from(posts);
 
-        return new ResponseEntity<>(postListResDto, HttpStatus.OK);
+        return new RspTemplate<>(HttpStatus.OK,"조회 완료!",postListResDto);
     }
 
     @GetMapping("/{postId}")

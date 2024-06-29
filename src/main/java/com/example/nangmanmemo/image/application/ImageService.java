@@ -63,7 +63,7 @@ public class ImageService {
                 .build();
         imageRepository.save(image);
 
-        return new PostImageInfoResDto(image, post);
+        return PostImageInfoResDto.from(image, post);
 
     }
 
