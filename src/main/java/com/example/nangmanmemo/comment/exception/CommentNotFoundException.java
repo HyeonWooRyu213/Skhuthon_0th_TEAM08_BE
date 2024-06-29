@@ -11,3 +11,4 @@ public class CommentNotFoundException extends NotFoundException {
         this("게시글에 댓글이 없습니다. commentId: " + commentId);
     }
 }
+

@@ -8,6 +8,13 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.example.nangmanmemo.image.domain.Image;
 import com.example.nangmanmemo.image.domain.repository.ImageRepository;
 import com.example.nangmanmemo.image.exception.ImageNotFoundException;
+/*<<<<<<< HEAD
+=======
+import com.example.nangmanmemo.image.exception.PostNotFoundException;
+import com.example.nangmanmemo.post.api.response.PostImageInfoResDto;
+import com.example.nangmanmemo.post.api.response.PostInfoResDto;
+>>>>>>> e6574bbf67d381e7532740d9ed80f6014ca6e3ca*/
+import com.example.nangmanmemo.post.api.response.PostImageInfoResDto;
 import com.example.nangmanmemo.post.domain.Post;
 import com.example.nangmanmemo.post.domain.repository.PostRepository;
 import com.example.nangmanmemo.post.exeption.PostNotFoundException;
@@ -51,7 +58,7 @@ public class ImageService {
     }
 
     @Transactional
-    public void saveImageInfo(Long postId, String imageUrl) {
+    public PostImageInfoResDto saveImageInfo(Long postId, String imageUrl) {
         Post post = postRepository.findByPostId(postId)
                 .orElseThrow(() -> new PostNotFoundException(postId));
 
@@ -60,6 +67,9 @@ public class ImageService {
                 .post(post)
                 .build();
         imageRepository.save(image);
+
+        return PostImageInfoResDto.from(image, post);
+
     }
 
     @Transactional
