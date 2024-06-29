@@ -11,6 +11,7 @@ import com.example.nangmanmemo.post.api.response.DetailPostResDto;
 import com.example.nangmanmemo.post.api.response.PostInfoResDto;
 import com.example.nangmanmemo.post.domain.Post;
 import com.example.nangmanmemo.post.domain.repository.PostRepository;
+import com.example.nangmanmemo.post.exeption.PostNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,7 +56,7 @@ public class PostService {
     @Transactional
     public DetailPostResDto postFindOne(Long postId) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(()-> new IllegalArgumentException("해당 게시글 없음"));
+                .orElseThrow(()-> new PostNotFoundException(postId));
 
         // 조회수 증가
         post.incrementView();
@@ -71,7 +72,7 @@ public class PostService {
     @Transactional
     public void incrementLike(Long postId) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글 없음"));
+                .orElseThrow(() -> new PostNotFoundException(postId));
 
         post.incrementLike();
         postRepository.save(post);
@@ -81,7 +82,7 @@ public class PostService {
     @Transactional
     public void postUpdate(Long postId, PostUpdateReqDto postUpdateReqDto) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(()-> new IllegalArgumentException("해당 게시글 없음"));
+                .orElseThrow(()-> new PostNotFoundException(postId));
 
         post.update(postUpdateReqDto);
     }
@@ -90,7 +91,7 @@ public class PostService {
     @Transactional
     public void postDelete(Long postId) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(()-> new IllegalArgumentException("해당 게시글 없음"));
+                .orElseThrow(()-> new PostNotFoundException(postId));
 
         postRepository.delete(post);
     }
