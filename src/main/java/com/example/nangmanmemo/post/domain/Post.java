@@ -48,7 +48,7 @@ public class Post {
     @Column(name = "postDate")
     private LocalDateTime postDate;
 
-    @OneToMany(mappedBy = "Post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> commentList = new ArrayList<>();
 
     @Builder

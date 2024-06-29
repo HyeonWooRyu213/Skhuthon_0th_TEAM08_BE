@@ -38,7 +38,7 @@ public class Comment {
     @Column(name = "commentDate")
     private LocalDateTime commentDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
 
