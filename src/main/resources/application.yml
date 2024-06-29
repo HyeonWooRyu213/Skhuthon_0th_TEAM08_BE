@@ -24,6 +24,7 @@ spring:
     open-in-view: false
 
 myapp:
+  api-url: ${myapp.api-url}
   local-url: ${myapp.local-url}
 
 cloud:

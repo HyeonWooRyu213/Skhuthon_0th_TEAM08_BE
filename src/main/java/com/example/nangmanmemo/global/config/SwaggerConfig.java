@@ -18,8 +18,8 @@ public class SwaggerConfig {
     @Value("${myapp.local-url}")
     private String localUrl;
 
-//    @Value("${myapp.api-url}")
-//    private String prodUrl;
+    @Value("${myapp.api-url}")
+    private String prodUrl;
 
     @Bean
     public OpenAPI openAPI() {
@@ -40,16 +40,15 @@ public class SwaggerConfig {
     }
 
     private void configureServers(OpenAPI openAPI) {
-//        Server prodServer = new Server()
-//                .description("Production Server")
-//                .url(prodUrl);
+        Server prodServer = new Server()
+                .description("Production Server")
+                .url(prodUrl);
 
         Server localServer = new Server()
                 .description("Development Server")
                 .url(localUrl);
 
-        //openAPI.servers(Arrays.asList(prodServer, localServer));
-        openAPI.servers(Arrays.asList(localServer));
+        openAPI.servers(Arrays.asList(prodServer, localServer));
     }
 }
 
