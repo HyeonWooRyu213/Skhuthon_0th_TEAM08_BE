@@ -33,7 +33,7 @@ public class AwsS3Service {
     private final AmazonS3 amazonS3;
     private final ImageRepository imageRepository;
 
-    @Value("${cloud.aws.s3.bucket")
+    @Value("${cloud.aws.s3.bucket}")
     private String bucketName;
 
     public String upload(MultipartFile file) throws IOException{
@@ -94,3 +94,4 @@ public class AwsS3Service {
     }
 
 }
+
