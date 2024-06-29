@@ -3,6 +3,7 @@ package com.example.nangmanmemo.post.api;
 import com.example.nangmanmemo.global.template.RspTemplate;
 import com.example.nangmanmemo.image.api.dto.response.ImageInfoResDto;
 import com.example.nangmanmemo.image.application.ImageService;
+
 import com.example.nangmanmemo.post.api.request.PostSaveReqDto;
 import com.example.nangmanmemo.post.api.request.PostUpdateReqDto;
 import com.example.nangmanmemo.post.api.response.DetailPostResDto;
@@ -10,6 +11,7 @@ import com.example.nangmanmemo.post.api.response.PostImageInfoResDto;
 import com.example.nangmanmemo.post.api.response.PostInfoResDto;
 import com.example.nangmanmemo.post.api.response.PostListResDto;
 import com.example.nangmanmemo.post.application.PostService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +41,12 @@ public class PostController {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new PostImageInfoResDto(postId, postSaveReqDto.title(), postSaveReqDto.content(), imageUrl));
+    }
+
+    @PostMapping("/{postId}/like")
+    public ResponseEntity<String> likePost(@PathVariable Long postId) {
+        postService.incrementLike(postId);
+        return ResponseEntity.ok().build();
     }
 
 

@@ -9,11 +9,13 @@ import java.util.List;
 
 @Builder
 public record PostInfoResDto(
+        Long postId,
         String title,
         String content
 ) {
     public static PostInfoResDto from (Post post) {
         return PostInfoResDto.builder()
+                .postId(post.getPostId())
                 .title(post.getTitle())
                 .content(post.getContent())
                 .build();

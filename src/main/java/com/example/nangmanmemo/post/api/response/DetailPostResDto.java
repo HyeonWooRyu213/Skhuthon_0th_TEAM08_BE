@@ -5,13 +5,19 @@ import com.example.nangmanmemo.image.domain.Image;
 import com.example.nangmanmemo.post.domain.Post;
 import lombok.Builder;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
 public record DetailPostResDto(
+        Long postId,
         String title,
         String content,
         String imageUrl,
+        Integer likes,
+        Integer view,
+
+        LocalDateTime postDate,
 
         List<String> comments
 
@@ -22,10 +28,16 @@ public record DetailPostResDto(
                 .toList();
 
 
+
+
         return DetailPostResDto.builder()
+                .postId(post.getPostId())
                 .title(post.getTitle())
                 .content(post.getContent())
                 .imageUrl(image.getImageUrl())
+                .view(post.getView())
+                .likes(post.getLikes())
+                .postDate(post.getPostDate())
                 .comments(comments1)
                 .build();
     }

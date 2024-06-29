@@ -38,7 +38,7 @@ public class Post {
 
     // 게시글 좋아요 수
     @Column(name = "likes")
-    private Integer likes = 0;
+    private Integer likes;
 
     // 게시글 신고
     @Column(name = "report")
@@ -52,16 +52,28 @@ public class Post {
     private List<Comment> commentList = new ArrayList<>();
 
     @Builder
-    private Post(Long postId, String title, String content) {
+    private Post(Long postId, String title, String content, Integer view, Integer likes) {
         this.postId = postId;
         this.title = title;
         this.content = content;
+        this.view = view;
+        this.likes = likes;
         this.postDate = LocalDateTime.now();
     }
 
     public void update(PostUpdateReqDto postUpdateReqDto) {
         this.title = postUpdateReqDto.title();
         this.content = postUpdateReqDto.content();
+    }
+
+    // 조회수 증가 메서드
+    public void incrementView() {
+        this.view++;
+    }
+
+    // 좋아요 증가 메서드
+    public void incrementLike() {
+        this.likes++;
     }
 
 
