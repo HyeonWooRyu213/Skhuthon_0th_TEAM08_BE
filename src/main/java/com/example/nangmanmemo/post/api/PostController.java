@@ -1,6 +1,7 @@
 package com.example.nangmanmemo.post.api;
 
 import com.example.nangmanmemo.global.template.RspTemplate;
+import com.example.nangmanmemo.image.api.dto.request.ImageUpdateReqDto;
 import com.example.nangmanmemo.image.api.dto.response.ImageInfoResDto;
 import com.example.nangmanmemo.image.application.ImageService;
 
@@ -70,11 +71,22 @@ public class PostController {
     }
 
     @Operation(summary = "게시글 수정", method = "PATCH")
-    @PatchMapping("/{postId}")
-    public RspTemplate<String> postUpdate(@PathVariable("postId") Long postId, @RequestBody PostUpdateReqDto postUpdateReqDto) {
+    @PatchMapping(value = "/{postId}", consumes = "multipart/form-data")
+    public RspTemplate<DetailPostResDto> postUpdate(@PathVariable("postId") Long postId,
+                                          @RequestPart("post") PostUpdateReqDto postUpdateReqDto,
+                                          @RequestPart(value="file",required = false) MultipartFile file) throws IOException{
+
         postService.postUpdate(postId, postUpdateReqDto);
 
-        return new RspTemplate<>(HttpStatus.OK, "게시글 수정");
+        if (file != null && !file.isEmpty()) {
+            imageService.deleteImageByPostId(postId);
+            String imageUrl = imageService.upload(file);
+            imageService.saveImageInfo(postId, imageUrl);
+        }
+
+        DetailPostResDto detailPostResDto = postService.postImageUpdate(postId);
+
+        return new RspTemplate<>(HttpStatus.OK, "게시글 수정", detailPostResDto);
     }
 
     @Operation(summary = "게시글 삭제", method = "DELETE")
