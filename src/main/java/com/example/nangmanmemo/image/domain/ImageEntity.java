@@ -1,5 +1,6 @@
 package com.example.nangmanmemo.image.domain;
 
+import com.example.nangmanmemo.post.domain.Post;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
