@@ -12,6 +12,7 @@ import com.example.nangmanmemo.post.api.response.PostInfoResDto;
 import com.example.nangmanmemo.post.domain.Post;
 import com.example.nangmanmemo.post.domain.repository.PostRepository;
 import com.example.nangmanmemo.post.exeption.PostNotFoundException;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

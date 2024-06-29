@@ -1,5 +1,6 @@
 package com.example.nangmanmemo.post.api.response;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 public record PostListResDto(
         List<PostInfoResDto> posts
 ) {
+    @Schema(description = "PostInfoResDto 리스트로 PostListResDto 생성", example = "PostListResDto.from(posts)")
     public static PostListResDto from (List<PostInfoResDto> posts) {
         return PostListResDto.builder()
                 .posts(posts)

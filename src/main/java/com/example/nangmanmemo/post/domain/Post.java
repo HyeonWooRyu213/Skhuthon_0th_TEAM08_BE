@@ -2,6 +2,7 @@ package com.example.nangmanmemo.post.domain;
 
 import com.example.nangmanmemo.comment.domain.Comment;
 import com.example.nangmanmemo.post.api.request.PostUpdateReqDto;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -22,26 +23,32 @@ public class Post {
 
     // 게시글 ID
     @Column(name = "post_id")
+    @Schema(description = "게시글 id", example = "1")
     private Long postId;
 
     // 게시글 제목
     @Column(name = "title")
+    @Schema(description = "게시글 제목", example = "이건 제목이야")
     private String title;
 
     // 게시글 내용
     @Column(name = "content")
+    @Schema(description = "게시글 내용", example = "이건 내용이야")
     private String content;
 
     // 게시글 조회수
     @Column(name = "view", columnDefinition = "int default 0")
+    @Schema(description = "게시글 조회수", example = "3000")
     private int view;
 
     // 게시글 좋아요 수
     @Column(name = "likes", columnDefinition = "int default 0")
+    @Schema(description = "게시글 좋아요 수", example = "104")
     private int likes;
 
     // 게시글 작성 시간
     @Column(name = "postDate")
+    @Schema(description = "게시글 작성시간", example = "2024-06-30T4:24")
     private LocalDateTime postDate;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
