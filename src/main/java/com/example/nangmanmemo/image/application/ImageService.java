@@ -69,7 +69,6 @@ public class ImageService {
         imageRepository.save(image);
 
         return PostImageInfoResDto.from(image, post);
-
     }
 
     @Transactional
