@@ -1,23 +1,23 @@
 package com.example.nangmanmemo.post.api.response;
 
-import com.example.nangmanmemo.comment.domain.Comment;
+import com.example.nangmanmemo.image.api.dto.response.ImageInfoResDto;
 import com.example.nangmanmemo.image.domain.Image;
 import com.example.nangmanmemo.post.domain.Post;
 import lombok.Builder;
 
-import java.util.List;
-
 @Builder
-public record PostInfoResDto(
+public record PostImageInfoResDto(
         Long postId,
         String title,
-        String content
+        String content,
+        String imageUrl
 ) {
-    public static PostInfoResDto from (Post post) {
-        return PostInfoResDto.builder()
+    public static PostImageInfoResDto from(Image image, Post post) {
+        return PostImageInfoResDto.builder()
                 .postId(post.getPostId())
                 .title(post.getTitle())
                 .content(post.getContent())
+                .imageUrl(image.getImageUrl())
                 .build();
     }
 }

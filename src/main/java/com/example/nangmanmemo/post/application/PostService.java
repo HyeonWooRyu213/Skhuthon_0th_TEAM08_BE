@@ -31,13 +31,15 @@ public class PostService {
 
 
     @Transactional
-    public void postSave(@RequestBody PostSaveReqDto postSaveReqDto) {
+    public Long postSave(@RequestBody PostSaveReqDto postSaveReqDto) {
         Post post = Post.builder()
                 .title(postSaveReqDto.title())
                 .content(postSaveReqDto.content())
                 .build();
 
         postRepository.save(post);
+
+        return post.getPostId();
     }
 
     public List<PostInfoResDto> postFindAll() {
