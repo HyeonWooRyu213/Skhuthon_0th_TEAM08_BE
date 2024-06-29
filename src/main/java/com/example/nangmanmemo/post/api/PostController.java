@@ -58,30 +58,30 @@ public class PostController {
         List<PostInfoResDto> posts = postService.postFindAll();
         PostListResDto postListResDto = PostListResDto.from(posts);
 
-        return new RspTemplate<>(HttpStatus.OK,"조회 완료!",postListResDto);
+        return new RspTemplate<>(HttpStatus.OK,"게시글 전체조회 성공", postListResDto);
     }
 
     @Operation(summary = "게시글 하나 조회", method = "GET")
     @GetMapping("/{postId}")
-    public ResponseEntity<DetailPostResDto> postFindOne(@PathVariable("postId") Long postId) {
-        DetailPostResDto postInfoResDto = postService.postFindOne(postId);
+    public RspTemplate<DetailPostResDto> postFindOne(@PathVariable("postId") Long postId) {
+        DetailPostResDto detailPostResDto = postService.postFindOne(postId);
 
-        return new ResponseEntity<>(postInfoResDto, HttpStatus.OK);
+        return new RspTemplate<>(HttpStatus.OK, "게시글 상세조회 성공", detailPostResDto);
     }
 
     @Operation(summary = "게시글 수정", method = "PATCH")
     @PatchMapping("/{postId}")
-    public ResponseEntity<String> postUpdate(@PathVariable("postId") Long postId, @RequestBody PostUpdateReqDto postUpdateReqDto) {
+    public RspTemplate<String> postUpdate(@PathVariable("postId") Long postId, @RequestBody PostUpdateReqDto postUpdateReqDto) {
         postService.postUpdate(postId, postUpdateReqDto);
 
-        return new ResponseEntity<>("게시글 수정", HttpStatus.OK);
+        return new RspTemplate<>(HttpStatus.OK, "게시글 수정");
     }
 
     @Operation(summary = "게시글 삭제", method = "DELETE")
     @DeleteMapping("/{postId}")
-    public ResponseEntity<String> postDelete(@PathVariable("postId") Long postId) {
+    public RspTemplate<String> postDelete(@PathVariable("postId") Long postId) {
         postService.postDelete(postId);
 
-        return new ResponseEntity<>("게시글 삭제", HttpStatus.OK);
+        return new RspTemplate<>( HttpStatus.OK, "게시글 삭제");
     }
 }

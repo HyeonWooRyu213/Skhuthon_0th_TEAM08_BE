@@ -12,9 +12,8 @@ public record PostSaveReqDto(
         @NotBlank
         String content,
         @NotBlank
-        Integer view,
+        int view,
         @NotBlank
-        Integer likes,
-        LocalDateTime postDate
+        int likes
 ) {
 }
