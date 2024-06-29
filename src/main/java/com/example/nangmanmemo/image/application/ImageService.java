@@ -7,6 +7,7 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.example.nangmanmemo.image.domain.Image;
 import com.example.nangmanmemo.image.domain.repository.ImageRepository;
+import com.example.nangmanmemo.image.exception.ImageEqualsPostIdNotFoundException;
 import com.example.nangmanmemo.image.exception.ImageNotFoundException;
 /*<<<<<<< HEAD
 =======
@@ -71,13 +72,26 @@ public class ImageService {
         return PostImageInfoResDto.from(image, post);
     }
 
+
+
     @Transactional
     public void deleteImage(Long imageId) {
-        Optional<Image> optionalImage = Optional.ofNullable(imageRepository.findById(imageId).orElseThrow(() -> new ImageNotFoundException(imageId)));
-            Image image = optionalImage.get();
-            String fileName = image.getImageUrl().substring(image.getImageUrl().lastIndexOf("/") + 1);
-            imageRepository.delete(image);
-            amazonS3.deleteObject(new DeleteObjectRequest(bucketName, fileName));
+        Image image = imageRepository.findById(imageId)
+                .orElseThrow(() -> new ImageNotFoundException(imageId));
+
+        String fileName = image.getImageUrl().substring(image.getImageUrl().lastIndexOf("/") + 1);
+        imageRepository.delete(image);
+        amazonS3.deleteObject(new DeleteObjectRequest(bucketName, fileName));
+    }
+
+
+    @Transactional
+    public void deleteImageByPostId(Long postId) {
+        Image image = imageRepository.findByPostPostId(postId);
+
+        String fileName = image.getImageUrl().substring(image.getImageUrl().lastIndexOf("/") + 1);
+        imageRepository.delete(image);
+        amazonS3.deleteObject(new DeleteObjectRequest(bucketName, fileName));
 
     }
 

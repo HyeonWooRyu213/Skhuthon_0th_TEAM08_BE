@@ -4,6 +4,8 @@ import com.example.nangmanmemo.global.template.RspTemplate;
 import com.example.nangmanmemo.image.api.dto.response.ImageInfoResDto;
 import com.example.nangmanmemo.image.application.ImageService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +29,11 @@ public class ImageController {
 
     }
 
-    @Operation(summary = "이미지 삭제", method = "DELETE")
+    @Operation(summary = "이미지 삭제", description = "이미지를 삭제합니다.")
+        @ApiResponses(value = {
+                @ApiResponse(responseCode = "200", description = "삭제 성공"),
+                @ApiResponse(responseCode = "404", description = "이미지 없음")
+        })
     @DeleteMapping("/{imageId}")
     public RspTemplate<Void> deleteImage(@PathVariable Long imageId) {
         imageService.deleteImage(imageId);

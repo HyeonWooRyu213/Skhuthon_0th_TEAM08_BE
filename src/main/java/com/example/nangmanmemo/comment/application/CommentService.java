@@ -35,6 +35,7 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
+
     public CommentInfoResDto commentFindOne(Long commentId) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(()-> new CommentNotFoundException(commentId));
@@ -42,6 +43,7 @@ public class CommentService {
         return CommentInfoResDto.from(comment);
     }
 
+    @Transactional
     public void commentUpdate(Long commentId, CommentUpdateReqDto commentUpdateReqDto) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(()-> new CommentNotFoundException(commentId));
@@ -49,6 +51,7 @@ public class CommentService {
         comment.update(commentUpdateReqDto);
     }
 
+    @Transactional
     public void commentDelete(Long commentId) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(()-> new CommentNotFoundException(commentId));
