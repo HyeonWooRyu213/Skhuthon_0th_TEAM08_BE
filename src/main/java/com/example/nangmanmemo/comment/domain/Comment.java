@@ -43,9 +43,10 @@ public class Comment {
     private Post post;
 
     @Builder
-    private Comment(Long commentId, String content) {
+    private Comment(Long commentId, String content, Post post) {
         this.commentId = commentId;
         this.content = content;
+        this.post = post;
         this.commentDate = LocalDateTime.now();
     }
 
