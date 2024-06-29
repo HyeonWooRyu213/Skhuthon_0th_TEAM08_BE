@@ -30,6 +30,7 @@ public class PostService {
     private final CommentRepository commentRepository;
     private final ImageRepository imageRepository;
 
+    // 게시글 저장
     @Transactional
     public Long postSave(@RequestBody PostSaveReqDto postSaveReqDto) {
         Post post = Post.builder()
@@ -42,6 +43,7 @@ public class PostService {
         return post.getPostId();
     }
 
+    // 게시글 전체 조회
     public List<PostInfoResDto> postFindAll() {
         List<Post> posts = postRepository.findAll();
         return posts.stream()
@@ -49,11 +51,13 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
+    // 게시글 상세조회
     @Transactional
     public DetailPostResDto postFindOne(Long postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(()-> new IllegalArgumentException("해당 게시글 없음"));
 
+        // 조회수 증가
         post.incrementView();
         postRepository.save(post);
 
@@ -63,14 +67,26 @@ public class PostService {
         return DetailPostResDto.from(post, comments, image);
     }
 
+    // 좋아요 증가
+    @Transactional
+    public void incrementLike(Long postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글 없음"));
+
+        post.incrementLike();
+        postRepository.save(post);
+    }
+
+    // 게시글 업데이트
     @Transactional
     public void postUpdate(Long postId, PostUpdateReqDto postUpdateReqDto) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(()-> new IllegalArgumentException("해당 게시글 없음"));
-        
+
         post.update(postUpdateReqDto);
     }
 
+    // 게시글 삭제
     @Transactional
     public void postDelete(Long postId) {
         Post post = postRepository.findById(postId)
