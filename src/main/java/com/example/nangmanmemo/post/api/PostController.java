@@ -35,7 +35,7 @@ public class PostController {
 
         Long postId = postService.postSave(postSaveReqDto);
         String imageUrl = imageService.upload(file);
-        imageService.saveImageInfo(postId, imageUrl);
+        PostImageInfoResDto postImageInfoResDto = imageService.saveImageInfo(postId, imageUrl);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new PostImageInfoResDto(postId, postSaveReqDto.title(), postSaveReqDto.content(), imageUrl));
