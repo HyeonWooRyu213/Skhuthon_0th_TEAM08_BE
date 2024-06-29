@@ -71,6 +71,11 @@ public class Post {
         this.view++;
     }
 
+    // 좋아요 증가 메서드
+    public void incrementLike() {
+        this.likes++;
+    }
+
 
 
 
