@@ -10,6 +10,7 @@ import lombok.Builder;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Builder
 public record DetailPostResDto(
@@ -25,26 +26,26 @@ public record DetailPostResDto(
         int likes,
         @NotBlank
         int view,
-
         LocalDateTime postDate,
         @NotNull
-        List<String> comments
-
+        List<CommentDto> comments
 ) {
-    public static DetailPostResDto from (Post post, List<Comment> comments, Image image) {
-        List<String> comments1 = post.getCommentList().stream()
-                .map(Comment::getContent)
-                .toList();
+    public static DetailPostResDto from(Post post, List<Comment> comments, Image image) {
+        List<CommentDto> commentDtos = post.getCommentList().stream()
+                .map(comment -> new CommentDto(comment.getCommentId(), comment.getContent()))
+                .collect(Collectors.toList());
 
         return DetailPostResDto.builder()
                 .postId(post.getPostId())
                 .title(post.getTitle())
-                .content(post.getContent()) // 조건식 ? 참 : 거짓
+                .content(post.getContent())
                 .imageUrl(image != null ? image.getImageUrl() : null)
                 .view(post.getView())
                 .likes(post.getLikes())
                 .postDate(post.getPostDate())
-                .comments(comments != null ? comments1 : null)
+                .comments(comments != null ? commentDtos : null)
                 .build();
     }
+
+    public record CommentDto(Long commentId, String content) {}
 }

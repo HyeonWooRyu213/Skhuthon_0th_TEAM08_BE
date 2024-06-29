@@ -26,14 +26,6 @@ public class Comment {
     @Column(name = "content")
     private String content;
 
-    // 댓글 추천수
-    @Column(name = "likes")
-    private String likes;
-
-    // 댓글 신고
-    @Column(name = "report")
-    private String report;
-
     // 댓글 작성 시간
     @Column(name = "commentDate")
     private LocalDateTime commentDate;
