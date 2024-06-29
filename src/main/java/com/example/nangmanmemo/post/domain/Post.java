@@ -52,7 +52,7 @@ public class Post {
     private List<Comment> commentList = new ArrayList<>();
 
     @Builder
-    private Post(Long postId, String title, String content, Integer view, Integer likes) {
+    private Post(Long postId, String title, String content, int view, int likes) {
         this.postId = postId;
         this.title = title;
         this.content = content;
